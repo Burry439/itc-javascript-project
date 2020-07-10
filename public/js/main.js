@@ -30,7 +30,7 @@ const getCompanies = async () =>{
     const query = document.getElementById("query").value
     
     //make a request to the financial modeling prep api.
-    const response = await fetch(`https://financialmodelingprep.com/api/v3/search?query=${query}&limit=10&exchange=NASDAQ&apikey=35002e15f80bef1908e94aa2b9a12f5e`)
+    const response = await fetch(`https://financialmodelingprep.com/api/v3/search?query=${query}&limit=10&exchange=NASDAQ&apikey=fc032da7f1d518ad2564dd5e675c2979`)
 
     //resolve the promise and get the data.
     const companies = await response.json()
@@ -55,7 +55,7 @@ const setCompanies = (companies) =>{
     //for ever company we found from our search
     companies.forEach(company => {
 
-        //create an anchor tag element to hold the data and a link to the the company
+        //create an anchor tag element to hold the data and a link to the the company page
         const anchorTag = document.createElement("a")
         
         //add attributes to our anchor tag
@@ -64,18 +64,12 @@ const setCompanies = (companies) =>{
             //add some classes to make it look nice
             className: "list-group-item company",
 
-            //add an href to company website
+            //add an href to the company page
             href: `/company.html?symbol=${company.symbol}`,
 
-            //add a _blank target so the link will open in another tab 
-            target: "_blank"
+            //add the company name and symbol
+            innerHTML: `${company.name}  (${company.symbol})`
         })
-
-        //create a text node to hold the name and symbol of the company
-        const anchorTagText = document.createTextNode(`${company.name}  (${company.symbol})`);  
-        
-        //add the text node to the anchor tag
-        anchorTag.appendChild(anchorTagText);    
 
         //add our newly created anchor tag to our ul element                         
         companyList.appendChild(anchorTag)
